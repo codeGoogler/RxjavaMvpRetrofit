@@ -20,12 +20,15 @@ import android.widget.Toast;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.yuer.study.module.base.BaseActivity;
+import com.yuer.study.module.examples.TestGlideApp;
+import com.yuer.study.module.examples.mvploadimage.ImageTestMVPActivity;
 import com.yuer.study.module.media.channel.MediaChannelView;
 import com.yuer.study.module.news.NewsTabLayout;
 import com.yuer.study.module.photo.PhotoTabLayout;
 import com.yuer.study.module.search.SearchActivity;
 import com.yuer.study.module.video.VideoTabLayout;
 import com.yuer.study.setting.SettingActivity;
+import com.yuer.study.util.AppStatusBarUtil;
 import com.yuer.study.util.SettingUtil;
 import com.yuer.study.widget.helper.BottomNavigationViewHelper;
 
@@ -70,6 +73,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (SettingUtil.getInstance().getIsFirstTime()) {
             showTapTarget();
+
         }
     }
 
@@ -206,6 +210,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     ft.add(R.id.container, newsTabLayout, NewsTabLayout.class.getName());
                 } else {
                     ft.show(newsTabLayout);
+//                    startActivity(new Intent(this,TestGlideApp.class));
+                    startActivity(new Intent(this,ImageTestMVPActivity.class));
                 }
                 break;
 

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.view.ViewAttachEvent;
 import com.yuer.study.ErrorAction;
 import com.yuer.study.IntentAction;
 import com.yuer.study.R;
@@ -24,6 +25,7 @@ import com.yuer.study.util.TimeUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.ItemViewBinder;
 
 /**
@@ -61,7 +63,7 @@ public class MediaArticleTextViewBinder extends ItemViewBinder<MultiMediaArticle
             holder.tv_extra.setText(readCount + " - " + countmmentCount + " - " + time);
 
             RxView.clicks(holder.itemView)
-                    .throttleFirst(1, TimeUnit.SECONDS)
+                    .throttleFirst(0, TimeUnit.SECONDS)
                     .subscribe(o -> {
                         MultiNewsArticleDataBean bean = new MultiNewsArticleDataBean();
                         bean.setTitle(item.getTitle());
@@ -75,7 +77,12 @@ public class MediaArticleTextViewBinder extends ItemViewBinder<MultiMediaArticle
                         bean.setItem_id(item.getItem_id());
                         NewsContentActivity.launch(bean);
                     });
+          /*RxView.attachEvents(holder.itemView).subscribe(new Consumer<ViewAttachEvent>() {
+                @Override
+                public void accept(ViewAttachEvent viewAttachEvent) throws Exception {
 
+                }
+            });*/
             holder.iv_dots.setOnClickListener(view -> {
                 PopupMenu popupMenu = new PopupMenu(context,
                         holder.iv_dots, Gravity.END, 0, R.style.MyPopupMenu);

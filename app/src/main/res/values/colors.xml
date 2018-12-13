@@ -16,7 +16,7 @@
 
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
-
+    <color name="transparent">#00000000</color>
     <color name="Red">#f44336</color>
     <color name="Pink">#e91e63</color>
     <color name="Purple">#9c27b0</color>
@@ -54,4 +54,5 @@
     <color name="Grey700">#616161</color>
     <color name="Grey800">#424242</color>
     <color name="Grey900">#212121</color>
+    <color name="color_333333">#333333</color>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.yuer.study">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    package="com.yuer.study">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -145,7 +146,13 @@
             android:name=".ImageBrowserActivity"
             android:configChanges="orientation|screenSize|uiMode"
             android:theme="@style/AppTheme.NoActionBar.Slidable"/>
-
+        <activity
+            android:name=".module.examples.TestGlideApp"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:fitsSystemWindows="true"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".module.examples.mvploadimage.ImageTestMVPActivity" />
     </application>
 
 </manifest>

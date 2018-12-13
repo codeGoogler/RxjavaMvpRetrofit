@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.afollestad.materialdialogs.color.CircleView;
 import com.yuer.study.Constant;
 import com.yuer.study.R;
+import com.yuer.study.util.AppStatusBarUtil;
 import com.yuer.study.util.SettingUtil;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
@@ -44,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
+
     }
 
     /**
@@ -65,6 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.iconType = SettingUtil.getInstance().getCustomIconValue();
         this.mContext = this;
         initSlidable();
+      AppStatusBarUtil.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
     }
 
     @Override

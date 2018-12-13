@@ -10,6 +10,7 @@ import com.yuer.study.BuildConfig;
 import com.yuer.study.InitApp;
 import com.yuer.study.SdkManager;
 import com.yuer.study.api.INewsApi;
+import com.yuer.study.module.examples.mvploadimage.LoginAPi;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -92,6 +93,70 @@ public class RetrofitFactory {
 
                     retrofit = new Retrofit.Builder()
                             .baseUrl(INewsApi.HOST)
+                            .client(builder.build())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .build();
+                }
+            }
+        }
+        return retrofit;
+    }
+
+    public enum RetrofitHostType{
+        Default("默认的host"),
+        Study_Login("扩展host_login"),
+        Study_MVP("扩展host_login");
+
+        // 定义私有变量
+        private String host ;
+
+        // 构造函数，枚举类型只能为私有
+        RetrofitHostType(String host) {
+            this.host = host;
+        }
+
+    }
+
+
+    @NonNull
+    public static Retrofit getRetrofit(RetrofitHostType retrofitHostType) {
+
+        if (retrofit == null) {
+            synchronized (RetrofitFactory.class) {
+                if (retrofit == null) {
+                    // 指定缓存路径,缓存大小 50Mb
+                    Cache cache = new Cache(new File(InitApp.AppContext.getCacheDir(), "HttpCache"),
+                            1024 * 1024 * 50);
+
+                    // Cookie 持久化
+                    ClearableCookieJar cookieJar =
+                            new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(InitApp.AppContext));
+
+                    OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                            .cookieJar(cookieJar)
+                            .cache(cache)
+                            .addInterceptor(cacheControlInterceptor)
+                            .connectTimeout(10, TimeUnit.SECONDS)
+                            .readTimeout(15, TimeUnit.SECONDS)
+                            .writeTimeout(15, TimeUnit.SECONDS)
+                            .retryOnConnectionFailure(true);
+
+                    // Log 拦截器
+                    if (BuildConfig.DEBUG) {
+                        builder = SdkManager.initInterceptor(builder);
+                    }
+
+                    String baseUrl  = null;
+                    if(retrofitHostType == null){
+                        baseUrl = INewsApi.HOST;
+                    }else if(retrofitHostType == RetrofitHostType.Study_Login){
+                        baseUrl = LoginAPi.LOGIN_MVP_HOST;
+                    }else {
+                        baseUrl = INewsApi.HOST;
+                    }
+                    retrofit = new Retrofit.Builder()
+                            .baseUrl(baseUrl)
                             .client(builder.build())
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
