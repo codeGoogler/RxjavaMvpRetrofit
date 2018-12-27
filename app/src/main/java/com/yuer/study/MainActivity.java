@@ -326,4 +326,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         return false;
     }
+
+
+
+    public void testUrl(){
+        Toast.makeText(this,"卡卡罗特他",Toast.LENGTH_LONG).show();
+    }
 }
